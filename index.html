@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Manajemen Ban · Dwitama Ban Magetan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-tire"></i>
+        </div>
+        <div class="brand-text">
+          <h1>Dwitama Ban</h1>
+          <span class="tagline">Magetan</span>
+        </div>
+      </div>
+
+      <div class="store-address">
+        <i class="fa-solid fa-location-dot"></i>
+        <strong>Dwitama Ban Magetan</strong><br />
+        Jl. Monginsidi No. 15, Candi Kidul, Candirejo<br />
+        Magetan, Jawa Timur 63313
+      </div>
+
+      <nav class="menu-nav">
+        <button class="nav-btn active" onclick="switchPage('tampilan')" id="btn-tampilan"><i class="fa-solid fa-boxes-stacked"></i> Stok &amp; Menu</button>
+        <button class="nav-btn" onclick="switchPage('input')" id="btn-input"><i class="fa-solid fa-square-plus"></i> Input Barang</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="status-dot"></span>
+        <span>Karyawan Mode · Real-time</span>
+      </div>
+    </aside>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <main class="main-content" id="mainContent">
+      <!-- ═══ PAGE: TAMPILAN ═══ -->
+      <section id="page-tampilan" class="page active">
+        <div class="page-header" id="pageHeader">
+          <div>
+            <h1>📦 Stok &amp; Menu Ban</h1>
+            <p class="subtitle">
+              <i class="fa-solid fa-database"></i>
+              Data real-time dari Google Spreadsheet
+            </p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-outline" onclick="toggleFullView()" id="btnFullView"><i class="fa-solid fa-expand"></i> Full View</button>
+            <button class="btn btn-outline" onclick="loadData()"><i class="fa-solid fa-rotate"></i> Refresh</button>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row" id="statsRow">
+          <div class="stat-card">
+            <div class="stat-icon amber"><i class="fa-solid fa-tire"></i></div>
+            <div class="stat-info">
+              <div class="stat-label">Total Item</div>
+              <div class="stat-value" id="stat-total">0</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fa-solid fa-box"></i></div>
+            <div class="stat-info">
+              <div class="stat-label">Total Stok</div>
+              <div class="stat-value" id="stat-stok">0</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="fa-solid fa-tags"></i></div>
+            <div class="stat-info">
+              <div class="stat-label">Varian Ukuran</div>
+              <div class="stat-value" id="stat-ukuran">0</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="stat-info">
+              <div class="stat-label">Stok Menipis</div>
+              <div class="stat-value" id="stat-rendah">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container" id="tableContainer">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID Barang</th>
+                  <th>Nama Ban</th>
+                  <th>Ukuran</th>
+                  <th class="text-right">Harga</th>
+                  <th class="text-center">Stok</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-barang">
+                <tr>
+                  <td colspan="5" class="text-center" style="padding: 40px 0; color: var(--text-muted)">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 20px; display: block; margin-bottom: 8px"></i>
+                    Memuat data stok dari spreadsheet…
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ PAGE: INPUT ═══ -->
+      <section id="page-input" class="page">
+        <div class="page-header">
+          <div>
+            <h1>➕ Input Barang Baru</h1>
+            <p class="subtitle">
+              <i class="fa-solid fa-pen-to-square"></i>
+              Tambahkan item ban ke database spreadsheet
+            </p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-outline" onclick="toggleFullView()" id="btnFullViewInput"><i class="fa-solid fa-expand"></i> Full View</button>
+          </div>
+        </div>
+
+        <div class="form-container">
+          <div class="form-title">Detail Ban</div>
+          <div class="form-desc">Isi semua kolom di bawah ini untuk menambahkan stok baru.</div>
+
+          <form id="form-barang" onsubmit="simpanData(event)">
+            <div class="form-group">
+              <label for="id_barang"><i class="fa-solid fa-fingerprint"></i> ID Barang</label>
+              <input type="text" id="id_barang" placeholder="Contoh: BAN-001 atau BRG01" required />
+            </div>
+
+            <div class="form-group">
+              <label for="nama"><i class="fa-solid fa-tag"></i> Nama Ban</label>
+              <input type="text" id="nama" placeholder="Contoh: FDR Sport XR Evo" required />
+            </div>
+
+            <div class="form-group">
+              <label for="ukuran"><i class="fa-solid fa-ruler"></i> Ukuran Ban</label>
+              <input type="text" id="ukuran" placeholder="Contoh: 90/80-14" required />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="harga"><i class="fa-solid fa-money-bill-wave"></i> Harga (Rp)</label>
+                <input type="number" id="harga" placeholder="250000" required />
+              </div>
+              <div class="form-group">
+                <label for="stok"><i class="fa-solid fa-layer-group"></i> Stok Awal</label>
+                <input type="number" id="stok" placeholder="10" required />
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btn-submit-form"><i class="fa-solid fa-cloud-arrow-up"></i> Simpan ke Spreadsheet</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
