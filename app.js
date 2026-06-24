@@ -1,7 +1,7 @@
 // ==========================================
 // ISI DENGAN URL WEB APP GOOGLE APPS SCRIPT-MU
 // ==========================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwAQUDV_0iZz35V54k1Ltu5umaQVd9SKcyEQuxB-80S6RGFopXkn6M74aMT0AUdsv7S/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPkUiI9m1EU6ymEoRl3IBGDbKQ2ttfOnkn5usBMLBNvzBvpUnGD_NIOS62BBX8z1aJ/exec";
 
 // ─── FULL VIEW TOGGLE ─────────────────────────────────────
 let fullViewActive = false;
@@ -144,9 +144,11 @@ async function simpanData(e) {
   btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Menyimpan ke Cloud…';
 
   const payload = {
-    id_barang: document.getElementById("id_barang").value.trim(),
-    nama: document.getElementById("nama").value.trim(),
-    ukuran: document.getElementById("ukuran").value.trim(),
+    id_barang: document.getElementById("id_barang").value,
+    nama: document.getElementById("nama").value,
+    kategori: document.getElementById("kategori").value,
+    ukuran: document.getElementById("ukuran").value,
+    harga_modal: Number(document.getElementById("harga_modal").value),
     harga: Number(document.getElementById("harga").value),
     stok: Number(document.getElementById("stok").value),
   };

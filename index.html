@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- ═══ SIDEBAR ═══ -->
     <aside class="sidebar" id="sidebar">
       <div class="brand">
         <div class="brand-icon">
@@ -30,7 +29,7 @@
 
       <nav class="menu-nav">
         <button class="nav-btn active" onclick="switchPage('tampilan')" id="btn-tampilan"><i class="fa-solid fa-boxes-stacked"></i> Stok &amp; Menu</button>
-        <button class="nav-btn" onclick="switchPage('input')" id="btn-input"><i class="fa-solid fa-square-plus"></i> Input Barang</button>
+        <button class="nav-btn" onclick="switchPage('input')" id="btn-input"><i class="fa-solid fa-square-plus"></i> Input Barang (Ban)</button>
       </nav>
 
       <div class="sidebar-footer">
@@ -39,9 +38,7 @@
       </div>
     </aside>
 
-    <!-- ═══ MAIN CONTENT ═══ -->
     <main class="main-content" id="mainContent">
-      <!-- ═══ PAGE: TAMPILAN ═══ -->
       <section id="page-tampilan" class="page active">
         <div class="page-header" id="pageHeader">
           <div>
@@ -57,7 +54,6 @@
           </div>
         </div>
 
-        <!-- Stats Row -->
         <div class="stats-row" id="statsRow">
           <div class="stat-card">
             <div class="stat-icon amber"><i class="fa-solid fa-tire"></i></div>
@@ -89,7 +85,6 @@
           </div>
         </div>
 
-        <!-- Table -->
         <div class="table-container" id="tableContainer">
           <div class="table-scroll">
             <table>
@@ -115,7 +110,6 @@
         </div>
       </section>
 
-      <!-- ═══ PAGE: INPUT ═══ -->
       <section id="page-input" class="page">
         <div class="page-header">
           <div>
@@ -135,9 +129,15 @@
           <div class="form-desc">Isi semua kolom di bawah ini untuk menambahkan stok baru.</div>
 
           <form id="form-barang" onsubmit="simpanData(event)">
-            <div class="form-group">
-              <label for="id_barang"><i class="fa-solid fa-fingerprint"></i> ID Barang</label>
-              <input type="text" id="id_barang" placeholder="Contoh: BAN-001 atau BRG01" required />
+            <div class="form-row">
+              <div class="form-group">
+                <label for="id_barang"><i class="fa-solid fa-fingerprint"></i> ID Barang</label>
+                <input type="text" id="id_barang" placeholder="Contoh: BAN-001 atau BRG01" required />
+              </div>
+              <div class="form-group">
+                <label for="kategori"><i class="fa-solid fa-layer-group"></i> Kategori</label>
+                <input type="text" id="kategori" placeholder="Contoh: Tubeless / Tubetype" required />
+              </div>
             </div>
 
             <div class="form-group">
@@ -152,11 +152,15 @@
 
             <div class="form-row">
               <div class="form-group">
-                <label for="harga"><i class="fa-solid fa-money-bill-wave"></i> Harga (Rp)</label>
-                <input type="number" id="harga" placeholder="250000" required />
+                <label for="harga_modal"><i class="fa-solid fa-money-bill-wave"></i> Harga Modal (Rp)</label>
+                <input type="number" id="harga_modal" placeholder="Contoh: 180000" required />
               </div>
               <div class="form-group">
-                <label for="stok"><i class="fa-solid fa-layer-group"></i> Stok Awal</label>
+                <label for="harga"><i class="fa-solid fa-hand-holding-dollar"></i> Harga Jual (Rp)</label>
+                <input type="number" id="harga" placeholder="Contoh: 250000" required />
+              </div>
+              <div class="form-group">
+                <label for="stok"><i class="fa-solid fa-boxes-stacked"></i> Stok Awal</label>
                 <input type="number" id="stok" placeholder="10" required />
               </div>
             </div>
